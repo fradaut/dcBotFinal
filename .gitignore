@@ -1,0 +1,16 @@
+# js file
+dist/
+
+# dependencies
+node_modules/
+
+# options
+.eslintignore
+.env
+
+# logs
+nohup.out
+.tsbuildinfo
+
+# others
+other/
