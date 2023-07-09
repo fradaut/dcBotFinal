@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import IntentOptions from './config/IntentOptions.js';
 import connectDatabase from './database/connectDatabase.js';
 import validateEnv from './utils/validateEnv.js';
+import loader from './core/loader.js';
 
 dotenv.config();
 
@@ -12,6 +13,9 @@ dotenv.config();
 
   const BOT = new Client({ intents: IntentOptions });
 
+  await loader(BOT);
+
   await connectDatabase();
-  await BOT.login(process.env.TOKEN);
+
+  BOT.login(process.env.TOKEN);
 })();
