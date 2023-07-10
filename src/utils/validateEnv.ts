@@ -1,7 +1,11 @@
 const validateEnv = (): boolean => {
   let valid: boolean = true;
   if (!process.env.TOKEN) {
-    console.warn('Missing Discord bot token. Set it in .env file');
+    console.warn('Missing bot token. Set it in .env file');
+    valid = false;
+  }
+  if (!process.env.CLIENT_ID) {
+    console.warn('Missing bot client ID. Set it in .env file');
     valid = false;
   }
 
