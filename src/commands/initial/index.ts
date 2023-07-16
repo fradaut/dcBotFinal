@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChannelType, CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import GuildChannel from '../../database/models/GuildChannel.js';
 import GuildRole from '../../database/models/GuildRole.js';
 
@@ -33,6 +33,11 @@ export const command = new SlashCommandBuilder()
 
 export const run = async (interaction: CommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
+
+  if (interaction.channel?.type === ChannelType.DM) {
+    interaction.followUp('此命令無法在私訊使用');
+    return;
+  }
 
   const initialGuildChannel = new GuildChannel({
     guildID: interaction.guildId,

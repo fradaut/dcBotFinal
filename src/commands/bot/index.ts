@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChannelType, CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import autocompleteData from '../../events/onInteraction/autocompleteData.js';
 import modelMap from '../../database/modelMap.js';
 
@@ -19,6 +19,11 @@ export const command = new SlashCommandBuilder()
 
 export const run = async (interaction: CommandInteraction) => {
   await interaction.deferReply({ ephemeral: true });
+
+  if (interaction.channel?.type === ChannelType.DM) {
+    interaction.followUp('此命令無法在私訊使用');
+    return;
+  }
 
   const key = interaction.options.get('key')!.value as string;
   const { value } = (interaction.options.get('value')!);
