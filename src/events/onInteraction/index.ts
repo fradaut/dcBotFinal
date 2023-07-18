@@ -12,7 +12,7 @@ export const action = async (interaction: CommandInteraction) => {
   if (interaction.isChatInputCommand()) {
     const run = CommandList.get(interaction.commandName);
 
-    await run?.(interaction);
+    await run!(interaction);
   } else if (interaction.isAutocomplete()) {
     autocomplete(interaction);
   }
