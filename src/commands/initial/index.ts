@@ -32,7 +32,7 @@ export const command = new SlashCommandBuilder()
     .setRequired(true));
 
 export const run = async (interaction: CommandInteraction) => {
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply();
 
   if (!interaction.inGuild()) {
     interaction.followUp('此命令無法在私訊使用');
@@ -57,14 +57,14 @@ export const run = async (interaction: CommandInteraction) => {
 
   Promise.all([initialGuildChannel.save(), initialAdminRole.save()])
     .then(() => {
-      interaction.followUp({ content: '初始化成功', ephemeral: true });
+      interaction.followUp('初始化成功');
     })
     .catch((err) => {
       if (err.code === 11000) {
-        interaction.followUp({ content: '此伺服器已經初始化過了, 請使用 bot 指令進行設定', ephemeral: true });
+        interaction.followUp('此伺服器已經初始化過了, 請使用 bot 指令進行設定');
       } else {
         console.error(err);
-        interaction.followUp({ content: '發生錯誤', ephemeral: true });
+        interaction.followUp('發生錯誤');
       }
     });
 };

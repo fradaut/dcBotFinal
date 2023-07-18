@@ -18,7 +18,7 @@ export const command = new SlashCommandBuilder()
     .setRequired(true));
 
 export const run = async (interaction: CommandInteraction) => {
-  await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply();
 
   if (!interaction.inGuild()) {
     interaction.followUp('此命令無法在私訊使用');
@@ -29,7 +29,7 @@ export const run = async (interaction: CommandInteraction) => {
   const { value } = (interaction.options.get('value')!);
 
   if (!autocompleteData.get('database')!.includes(key)) {
-    interaction.followUp({ content: `輸入的 ${key} 不存在`, ephemeral: true });
+    interaction.followUp(`${key} 不存在資料庫中.`);
     return;
   }
 
@@ -41,12 +41,12 @@ export const run = async (interaction: CommandInteraction) => {
     { new: true, useFindAndModify: false },
   ).then((doc) => {
     if (doc) {
-      interaction.followUp({ content: `已將 ${key} 更改為 ${value}`, ephemeral: true });
+      interaction.followUp(`已將 ${key} 更改為 ${value}`);
     } else {
-      interaction.followUp({ content: '此伺服器尚未初始化, 請使用 initial 指令進行設定', ephemeral: true });
+      interaction.followUp('此伺服器尚未初始化, 請使用 initial 指令進行設定');
     }
   }).catch((error) => {
     console.error(error);
-    interaction.followUp({ content: '發生錯誤', ephemeral: true });
+    interaction.followUp('發生錯誤');
   });
 };
