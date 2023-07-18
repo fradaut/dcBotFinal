@@ -32,7 +32,7 @@ export const run = async (interaction: CommandInteraction) => {
     const guildRoleDoc = await GuildRole.findOne({ guildID: interaction.guildId });
 
     if (!guildChannelDoc || !guildRoleDoc) {
-      interaction.followUp('此伺服器尚未初始化, 請使用 bot 指令進行設定');
+      interaction.followUp('此伺服器尚未初始化, 請使用 initial 指令進行設定');
       return;
     }
 
