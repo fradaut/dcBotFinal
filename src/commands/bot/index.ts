@@ -1,6 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import autocompleteData from '../../events/onInteraction/autocompleteData.js';
 import modelMap from '../../database/modelMap.js';
+import validateRole from '../../utils/validateRole.js';
 
 export const command = new SlashCommandBuilder()
   .setName('bot')
@@ -24,6 +25,7 @@ export const run = async (interaction: CommandInteraction) => {
     interaction.followUp('此命令無法在私訊使用');
     return;
   }
+  if (!await validateRole(interaction)) return;
 
   const key = interaction.options.get('key')!.value as string;
   const { value } = (interaction.options.get('value')!);
