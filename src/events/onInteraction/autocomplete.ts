@@ -4,15 +4,12 @@ import autocompleteData from './autocompleteData.js';
 const getChoices = (interaction: AutocompleteInteraction): string[] | undefined => {
   const focusedOption = interaction.options.getFocused(true);
 
-  if (focusedOption.name === 'type') {
-    return autocompleteData.get(focusedOption.name);
-  }
   if (focusedOption.name === 'key') {
     const category = interaction.options.getString('type', true);
     return autocompleteData.get(category);
   }
 
-  return undefined;
+  return autocompleteData.get(focusedOption.name);
 };
 
 const autocomplete = async (interaction: AutocompleteInteraction) => {
