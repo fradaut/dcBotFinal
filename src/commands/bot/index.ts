@@ -2,6 +2,7 @@ import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import autocompleteData from '../../events/onInteraction/autocompleteData.js';
 import modelMap from '../../database/modelMap.js';
 import validateRole from '../../utils/validateRole.js';
+import checkGuild from '../../utils/checkGuild.js';
 
 export const command = new SlashCommandBuilder()
   .setName('bot')
@@ -21,10 +22,7 @@ export const command = new SlashCommandBuilder()
 export const run = async (interaction: CommandInteraction) => {
   await interaction.deferReply();
 
-  if (!interaction.inGuild()) {
-    interaction.followUp('此命令無法在私訊使用');
-    return;
-  }
+  if (!checkGuild(interaction)) return;
   if (!await validateRole(interaction)) return;
 
   const key = interaction.options.get('key')!.value as string;

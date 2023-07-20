@@ -2,6 +2,7 @@ import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import GuildChannel from '../../database/models/GuildChannel.js';
 import GuildRole from '../../database/models/GuildRole.js';
 import validateRole from '../../utils/validateRole.js';
+import checkGuild from '../../utils/checkGuild.js';
 
 const getChannel = (interaction: CommandInteraction, channelID: string) => {
   const channel = interaction.guild!.channels.cache.get(channelID);
@@ -23,10 +24,7 @@ export const command = new SlashCommandBuilder()
 export const run = async (interaction: CommandInteraction) => {
   await interaction.deferReply();
 
-  if (!interaction.inGuild()) {
-    await interaction.followUp('此命令無法在私訊使用');
-    return;
-  }
+  if (!checkGuild(interaction)) return;
   if (!await validateRole(interaction)) return;
 
   try {

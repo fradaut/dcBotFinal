@@ -1,6 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import GuildChannel from '../../database/models/GuildChannel.js';
 import GuildRole from '../../database/models/GuildRole.js';
+import checkGuild from '../../utils/checkGuild.js';
 
 export const command = new SlashCommandBuilder()
   .setName('initial')
@@ -34,10 +35,7 @@ export const command = new SlashCommandBuilder()
 export const run = async (interaction: CommandInteraction) => {
   await interaction.deferReply();
 
-  if (!interaction.inGuild()) {
-    interaction.followUp('此命令無法在私訊使用');
-    return;
-  }
+  if (!checkGuild(interaction)) return;
 
   const initialGuildChannel = new GuildChannel({
     guildID: interaction.guildId,
