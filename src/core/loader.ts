@@ -1,5 +1,5 @@
 import {
-  REST, Client, SlashCommandBuilder, Routes, CommandInteraction,
+  REST, Client, SlashCommandBuilder, Routes,
 } from 'discord.js';
 import fg from 'fast-glob';
 import path from 'path';
@@ -40,8 +40,8 @@ const loadEvents = async (client: Client) => {
 
     const { name, isOnce, hasClient } = eventFile.event;
     const action = hasClient
-      ? (interaction: CommandInteraction) => eventFile.action(client, interaction)
-      : (interaction: CommandInteraction) => eventFile.action(interaction);
+      ? (...args: any[]) => eventFile.action(client, ...args)
+      : (...args: any[]) => eventFile.action(...args);
 
     if (isOnce) {
       client.once(name, action);
