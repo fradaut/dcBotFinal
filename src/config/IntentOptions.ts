@@ -6,6 +6,7 @@ const IntentOptions: GatewayIntentsString[] = [
   'GuildMembers',
   'MessageContent',
   'GuildPresences',
-  'GuildVoiceStates'];
+  'GuildVoiceStates',
+  'DirectMessages'];
 
 export default IntentOptions;
