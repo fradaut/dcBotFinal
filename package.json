@@ -20,7 +20,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "^8.45.0",
@@ -35,7 +35,7 @@
   "dependencies": {
     "discord.js": "^14.11.0",
     "dotenv": "^16.3.1",
-    "fast-glob": "^3.3.0",
-    "mongoose": "^7.3.4"
+    "fast-glob": "^3.3.1",
+    "mongoose": "^7.4.0"
   }
 }
