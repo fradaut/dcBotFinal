@@ -36,6 +36,8 @@ export const run = async (interaction: CommandInteraction) => {
     return;
   }
 
+  const files = message.attachments.map((attachment) => attachment.url);
+
   try {
     await Promise.all(channels.map(async (channel) => {
       if (channel instanceof TextChannel
@@ -43,7 +45,7 @@ export const run = async (interaction: CommandInteraction) => {
       || channel instanceof NewsChannel
       || channel instanceof ThreadChannel) {
         try {
-          await channel.send(message.content);
+          await channel.send({ content: message.content, files });
         } catch (error) {
           await interaction.followUp('訊息發送錯誤');
           console.error(error);
